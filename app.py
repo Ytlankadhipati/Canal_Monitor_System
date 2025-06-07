@@ -12,8 +12,8 @@ os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 # === Google OAuth ===
 blueprint = make_google_blueprint(
-    client_id="1035578749063-318ndmh9um2h1932arjpheonnjbltm25.apps.googleusercontent.com",
-    client_secret="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",
+    client_id="YOUR_GOOGLE_CLIENT_ID",
+    client_secret="YOUR_GOOGLE_CLIENT_SECRET",
     scope=["openid", "https://www.googleapis.com/auth/userinfo.email"]
 )
 app.register_blueprint(blueprint, url_prefix="/login")
@@ -27,9 +27,9 @@ def uploaded_file(filename):
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = 'rishuawasthi1020@gmail.com'
-app.config['MAIL_PASSWORD'] = 'vrsz ttrt fukt rvia'
-app.config['MAIL_DEFAULT_SENDER'] = 'rishuawasthi1020@gmail.com'
+app.config['MAIL_USERNAME'] = 'YOUR_EMAIL@gmail.com'
+app.config['MAIL_PASSWORD'] = 'YOUR_EMAIL_APP_PASSWORD'
+app.config['MAIL_DEFAULT_SENDER'] = 'YOUR_EMAIL@gmail.com'
 
 mail = Mail(app)
 
@@ -92,7 +92,7 @@ def admin():
         return "Failed to fetch user info", 500
 
     email = resp.json().get("email", "").strip().lower()
-    if email != "ayushawasthi5363@gmail.com":  # ✅ Your Ayush admin email
+    if email != "YOUR_ADMIN_EMAIL@gmail.com":  # Your admin email here
         return "Access denied", 403
 
     conn = get_db_connection()
@@ -183,7 +183,6 @@ def send_email_alerts(water_level):
     </html>
     """
 
-    # Render HTML with the actual water level value
     rendered_html = render_template_string(html_template, water_level=water_level)
 
     for member in members:
@@ -191,7 +190,6 @@ def send_email_alerts(water_level):
             msg = Message(subject, recipients=[member['email']])
             msg.body = f"Water level alert: {water_level}%"  # fallback plain text
             msg.html = rendered_html
-            print(msg)
             mail.send(msg)
             print(f"[✓] Alert sent to {member['email']}")
         except Exception as e:
@@ -200,8 +198,3 @@ def send_email_alerts(water_level):
 if __name__ == '__main__':
     init_db()
     app.run(debug=True)
-
-
-
-
-
