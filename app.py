@@ -12,10 +12,11 @@ os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 # === Google OAuth ===
 blueprint = make_google_blueprint(
-    client_id="1035578749063-318ndmh9um2h1932arjpheonnjbltm25.apps.googleusercontent.com",
-    client_secret="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",
+    client_id="YOUR_GOOGLE_OAUTH_CLIENT_ID_HERE",
+    client_secret="YOUR_GOOGLE_OAUTH_CLIENT_SECRET_HERE",
     scope=["openid", "https://www.googleapis.com/auth/userinfo.email"]
 )
+
 app.register_blueprint(blueprint, url_prefix="/login")
 
 # === File upload route (optional use) ===
@@ -28,7 +29,7 @@ app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USERNAME'] = 'rishuawasthi1020@gmail.com'
-app.config['MAIL_PASSWORD'] = 'vrsz ttrt fukt rvia'
+app.config['MAIL_PASSWORD'] = 'App - password'
 app.config['MAIL_DEFAULT_SENDER'] = 'rishuawasthi1020@gmail.com'
 
 mail = Mail(app)
@@ -92,7 +93,7 @@ def admin():
         return "Failed to fetch user info", 500
 
     email = resp.json().get("email", "").strip().lower()
-    if email != "ayushawasthi5363@gmail.com":  # ✅ Your Ayush admin email
+    if email != "example@gmail.com":  # Admin  mail 
         return "Access denied", 403
 
     conn = get_db_connection()
